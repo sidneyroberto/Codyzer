@@ -1,13 +1,8 @@
 var mongoose = require('mongoose');
-var Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
-var gfs;
 
 module.exports = function(uri) {
 	mongoose.Promise = global.Promise;
 	mongoose.connect(uri);
-    var conexao = mongoose.createConnection(uri);
-    gfs = Grid(conexao.db);
 	
 	mongoose.connection.on('connected', function() {
 		console.log('Mongoose! Conectado em ' + uri);

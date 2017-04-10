@@ -1,0 +1,32 @@
+{
+  "name": "codyzer",
+  "description": "Analisador de códigos para as disciplinas do IFMS campus Aquidauana",
+  "main": "index.js",
+  "authors": [
+    "sidneyroberto"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "analisador",
+    "códigos",
+    "ensino",
+    "programação"
+  ],
+  "homepage": "https://github.com/sidneyroberto/Codyzer",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-resource": "^1.6.4",
+    "bootstrap": "^3.3.7",
+    "ng-file-upload": "^12.2.13"
+  }
+}

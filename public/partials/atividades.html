@@ -1,0 +1,53 @@
+<div class="page-header">
+	<h1>Minhas atividades</h1>
+    <h4>Exibindo apenas as atividades com deadline aberto</h4>
+<div>
+
+<br/>
+<div class="row">
+    <h4 ng-show="mensagem.texto">{{mensagem.texto}}</h4>
+</div>
+    
+<div class="row">
+        <input ng-model="filtro" type="search" class="form-control" placeholder="Digite parte do título da atividade">
+</div>
+
+<br/>
+<div class="row text-center"  ng-hide="atividades.length">
+    <h4>Nenhuma atividade para você!</h4>
+</div>
+
+<div class="row text-center"  ng-show="atividades.length">
+    <h4>{{atividades.length}} atividade(s)</h4>
+</div>
+
+<div ng-show="atividades.length" class="table-responsive">
+	<table	class="table table-hover">
+		<tr>
+			<th	class="text-center">Disciplina</th>
+			<th	class="text-center">Valor (nota)</th>
+            <th	class="text-center">Deadline</th>
+			<th	class="text-center">Linguagem</th>
+			<th	class="text-center">Ações</th>
+		</tr>
+		<tr ng-repeat="atividade in atividades | filter: filtro">
+			<td	class="text-center">{{atividade.disciplina}}</td>
+			<td	class="text-center">{{atividade.valor}}</td>
+            <td	class="text-center">{{atividade.deadline | date: 'dd/MM/yyyy HH:mm'}}</td>
+			<td	class="text-center">{{atividade.linguagem}}</td>
+			<td	class="text-center">
+                <a href="#!/atividade/{{atividade._id}}" class="btn">
+                    <span class="glyphicon glyphicon-edit"></span> 
+                </a>
+                <button ng-click="remove(livro)" class="btn btn-link glyphicon glyphicon-trash"></button>
+			</td>
+		</tr>
+	</table>
+</div>
+    
+<div class="row">
+    <span class="input-group-btn">
+        <a href="#!/atividade" class="btn btn-primary">Nova atividade</a>
+    </span>
+</div>
+    

@@ -29,6 +29,7 @@
     "express-load": "^1.1.15",
     "gridfs-stream": "^1.1.1",
     "method-override": "^2.3.8",
-    "mongoose": "^4.9.3"
+    "mongoose": "^4.9.3",
+    "rimraf": "^2.6.1"
   }
 }

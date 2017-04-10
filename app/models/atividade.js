@@ -15,8 +15,8 @@ module.exports = function() {
             default: Date.now
         },
         disciplina: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Disciplina'
+            type: String,
+            required: true
         },
         linguagem: {
             type: String,

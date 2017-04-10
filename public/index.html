@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="codyzer">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Codyzer</title>
+        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="styles/default.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#!">Codyzer</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Atividades<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#!/atividades">Minhas atividades</a></li>
+                                <li><a href="#!/atividade">Nova atividade</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container theme-showcase" role="main">
+            <div ng-view></div>
+            <script	src="vendor/angular/angular.js"></script>
+            <script	src="vendor/angular-route/angular-route.js"></script>
+            <script	src="vendor/angular-resource/angular-resource.js"></script>
+            <script	src="vendor/jquery/dist/jquery.min.js"></script>
+            <script	src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script	src="vendor/ng-file-upload/ng-file-upload-all.min.js"></script>
+            <script	src="vendor/ng-file-upload/ng-file-upload-shim.min.js"></script>
+            <script	src="js/main.js"></script>
+			<script	src="js/services/AtividadeService.js"></script>
+            <script	src="js/controllers/AtividadeController.js"></script>
+            <script	src="js/controllers/AtividadesController.js"></script>
+        </div>
+    </body>
+</html>

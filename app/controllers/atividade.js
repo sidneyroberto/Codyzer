@@ -30,7 +30,7 @@ module.exports = function(app) {
                     }
                 );
         } else {
-            Avaliacao.create(req.body)
+            Atividade.create(req.body)
                 .then(
                     function(atividade) {
                         res.status(201).json(atividade);
@@ -73,6 +73,64 @@ module.exports = function(app) {
                     res.status(500).json(erro);
                 }
             );
+    }
+    
+    
+    controller.realizaUploadDeArquivoDeTeste = function(req, res) {
+        fazUploadDeArquivo(req, res, 'teste');
+    };
+    
+    controller.realizaUploadDeArquivoDeSubmissao = function(req, res) {
+        fazUploadDeArquivo(req, res, 'submissao');
+    };
+    
+    
+    var fs = require('fs');
+    var mongoose = require('mongoose');
+    var Grid = require('gridfs-stream');
+    var rimraf = require('rimraf');
+    Grid.mongo = mongoose.mongo;
+    function fazUploadDeArquivo(req, res, tipo) {
+        var gfs = Grid(mongoose.connection.db);
+        var arquivo = req.files.arquivo;
+
+        var writeStream = gfs.createWriteStream({
+            filename: arquivo.name,
+            mode: 'w',
+            content_type: arquivo.mimetype,
+            metadata: {
+                idAtividade: req.body.idAtividade,
+                tipoArquivo: tipo
+            }
+        });
+
+        var pastaRaiz = './uploads/';
+        var pastaArquivo =  pastaRaiz + req.body.idAtividade +  '/';
+        if (!fs.existsSync(pastaRaiz)){
+            fs.mkdirSync(pastaRaiz);
+        }
+        if(!fs.existsSync(pastaArquivo)) {
+            fs.mkdirSync(pastaArquivo);
+        }
+        var caminhoArquivo = pastaArquivo + arquivo.name;
+        fs.writeFile(caminhoArquivo, arquivo.data, function(erro) {
+            if(erro) {
+                console.log('Deu erro aqui: ' + erro);
+            } else {
+                console.log("Arquivo '" + arquivo.name + "' salvo em " + caminhoArquivo + ".");
+            }
+
+        });
+
+        writeStream.on('close', function(arquivo) {
+            console.log('Arquivo salvo com sucesso!');
+            res.send('Arquivo salvo com sucesso');
+            rimraf(pastaArquivo, function() {
+                console.log('Pasta ' + pastaArquivo + ' removida.')
+            });
+        });
+
+        fs.createReadStream(caminhoArquivo).pipe(writeStream);
     }
     
     return controller;
