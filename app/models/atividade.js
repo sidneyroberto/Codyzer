@@ -21,6 +21,10 @@ module.exports = function() {
         linguagem: {
             type: String,
             default: 'java'
+        },
+        nomeArquivoTeste: {
+            type: String,
+            required: true
         }
     });
     

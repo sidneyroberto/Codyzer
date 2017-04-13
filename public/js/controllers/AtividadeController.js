@@ -1,15 +1,28 @@
 angular.module('codyzer').controller('AtividadeController', 
-    function($scope, $routeParams, Atividade, Upload) {
+    function($scope, $routeParams, Atividade, DownloadTeste, Upload) {
         if($routeParams.atividadeId) {
 			Atividade.get({id: $routeParams.atividadeId},
 				function(atividade) {
 					$scope.atividade = atividade;
-                    $scope.atividade.deadline = new Date(atividade.deadline)
+                    $scope.atividade.deadline = new Date(atividade.deadline);
+                    DownloadTeste.get({id : $scope.atividade._id},
+                        function(arquivo) {
+                            if(arquivo) {
+                                console.log('Arquivo recuperado:\n' + arquivo);
+                                $scope.arquivo = arquivo;
+                                $scope.arquivo.name = $scope.atividade.nomeArquivoTeste;
+                            }
+                        },
+                        function(erro) {
+                            console.log(erro);
+                        }
+                    );
 				},
 				function(erro) {
 					console.log(erro);
 					$scope.mensagem = {texto : "Atividade inexistente. Atividade nova.", sucesso : false};
 					$scope.atividade = new Atividade();
+					$scope.arquivo = undefined;
 				}
 			);
 		} else {
@@ -18,6 +31,7 @@ angular.module('codyzer').controller('AtividadeController',
         
         $scope.salva = function() {
             if($scope.arquivo) {
+                $scope.atividade.nomeArquivoTeste = $scope.arquivo.name;
                 $scope.atividade.$save()
                     .then(
                         function(atividade) {

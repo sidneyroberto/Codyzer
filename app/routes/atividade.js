@@ -10,4 +10,6 @@ module.exports = function(app) {
         .post(controller.realizaUploadDeArquivoDeTeste);
     app.route('/upload/submissao')
         .post(controller.realizaUploadDeArquivoDeSubmissao);
+    app.route('/download/teste/:id')
+        .get(controller.fazDownloadDoArquivoDeTeste);
 };
