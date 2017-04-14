@@ -20,11 +20,20 @@ module.exports = function() {
         },
         linguagem: {
             type: String,
-            default: 'java'
+            default: 'Java'
         },
-        nomeArquivoTeste: {
+        tipoTeste: {
             type: String,
-            required: true
+            default: 'JUnit'
+        },
+        nomeClasseTesteJUnit: {
+            type: String
+        },
+        nomeArquivoEntrada: {
+            type: String
+        },
+        nomeArquivoSaida: {
+            type: String
         }
     });
     

@@ -28,20 +28,51 @@
 		<input type="text" class="form-control" id="disciplina" name="disciplina" required ng-model="atividade.disciplina"/>
 	</div>
 	<div class="form-group">
-		<label for="linguagem">Linguagem</label>
-		<select class="form-control" id="linguagem" name="linguagem" required ng-model="atividade.linguagem">
-            <option value="java">Java</option>
-            <option value="java">Python</option>
-        </select>
+		<label>Linguagem</label>
+		<br/>
+		<label class="radio-inline">
+			<input type="radio" name="linguagem" value="Java" ng-model="atividade.linguagem">Java
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="linguagem" value="Python" ng-click="atividade.tipoTeste = 'entrada_saida'" ng-model="atividade.linguagem">Python (>=3.4)
+		</label>
 	</div>
-    <div class="form-group">
-        <label>Arquivo de teste</label>
+	<div class="form-group">
+		<label>Tipo de teste</label>
+		<br/>
+		<label class="radio-inline">
+			<input type="radio" name="tipo_teste" value="JUnit" ng-click="atividade.linguagem = 'Java'" ng-model="atividade.tipoTeste">JUnit
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="tipo_teste" value="entrada_saida" ng-model="atividade.tipoTeste">Verificação de entrada e saída
+		</label>
+	</div>
+    <div class="form-group" ng-show="atividade.tipoTeste == 'JUnit'">
+        <label>Classe de teste JUnit</label>
         <br/>
-        <div ng-model="arquivo" name="arquivo" ngf-pattern="'.java, .python'" ngf-accept="'.java, .python'" ngf-select>
-            <a href="" class="btn" id="botao_arquivo" role="button">Clique aqui para selecionar o arquivo</a>
+        <div ng-model="classeJUnit" name="classe_junit" ngf-pattern="'.java'" ngf-accept="'.java'" ngf-select>
+            <a href="" class="btn" id="botao_classe_junit" role="button">Clique aqui para selecionar a classe JUnit</a>
         </div>
-        <span><b>{{arquivo.name}}</b></span>
-		<input hidden ng-model="atividade.nomeArquivoTeste" />
+        <span><b>{{classeJUnit.name}}</b></span>
+		<input hidden ng-model="atividade.nomeClasseTesteJUnit" />
+    </div>
+	<div class="form-group" ng-show="atividade.tipoTeste == 'entrada_saida'">
+        <label>Arquivo de entrada</label>
+        <br/>
+        <div ng-model="arquivoEntrada" name="arquivo_entrada" ngf-pattern="'.txt'" ngf-accept="'.txt'" ngf-select>
+            <a href="" class="btn" id="botao_arquivo_entrada" role="button">Clique aqui para selecionar o arquivo de entrada</a>
+        </div>
+        <span><b>{{arquivoEntrada.name}}</b></span>
+		<input hidden ng-model="atividade.nomeArquivoEntrada" />
+    </div>
+	<div class="form-group" ng-show="atividade.tipoTeste == 'entrada_saida'">
+        <label>Arquivo de saída</label>
+        <br/>
+        <div ng-model="arquivoSaida" name="arquivo_saida" ngf-pattern="'.txt'" ngf-accept="'.txt'" ngf-select>
+            <a href="" class="btn" id="botao_arquivo_saida" role="button">Clique aqui para selecionar o arquivo de saída</a>
+        </div>
+        <span><b>{{arquivoSaida.name}}</b></span>
+		<input hidden ng-model="atividade.nomeArquivoSaida" />
     </div>
 	<div>
 		<button type="submit" class="btn btn-primary">Salvar</button>

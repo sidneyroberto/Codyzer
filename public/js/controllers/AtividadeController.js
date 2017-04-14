@@ -9,8 +9,8 @@ angular.module('codyzer').controller('AtividadeController',
                         function(arquivo) {
                             if(arquivo) {
                                 console.log('Arquivo recuperado:\n' + arquivo);
-                                $scope.arquivo = arquivo;
-                                $scope.arquivo.name = $scope.atividade.nomeArquivoTeste;
+                                $scope.classeJUnit = arquivo;
+                                $scope.classeJUnit.name = $scope.atividade.nomeClasseTesteJUnit;
                             }
                         },
                         function(erro) {
@@ -22,16 +22,21 @@ angular.module('codyzer').controller('AtividadeController',
 					console.log(erro);
 					$scope.mensagem = {texto : "Atividade inexistente. Atividade nova.", sucesso : false};
 					$scope.atividade = new Atividade();
-					$scope.arquivo = undefined;
+					$scope.classeJUnit = undefined;
+                    $scope.arquivoEntrada = undefined;
+                    $scope.arquivoSaida = undefined;
 				}
 			);
 		} else {
 			$scope.atividade = new Atividade();
+            $scope.atividade.linguagem = 'Java';
+            $scope.atividade.tipoTeste = 'JUnit';
 		}
         
         $scope.salva = function() {
-            if($scope.arquivo) {
-                $scope.atividade.nomeArquivoTeste = $scope.arquivo.name;
+            if($scope.classeJUnit) {
+                $scope.atividade.nomeClasseTesteJUnit = $scope.classeJUnit.name;
+                $scope.atividade.nomeArquivoEntrada = $scope.arquivoEntrada.name;
                 $scope.atividade.$save()
                     .then(
                         function(atividade) {
@@ -53,10 +58,10 @@ angular.module('codyzer').controller('AtividadeController',
         function fazUploadDoArquivoDeTeste(atividadeId) {
             $scope.arquivo.upload = Upload.upload({
                 url: '/upload/teste',
-                data: {arquivo: $scope.arquivo, idAtividade: atividadeId}
+                data: {arquivo: $scope.classeJUnit, idAtividade: atividadeId}
             });
             
-            $scope.arquivo.upload.then(
+            $scope.classeJUnit.upload.then(
                 function(resposta) {
                     console.log(resposta);
                 },
